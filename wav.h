@@ -125,12 +125,14 @@ void *wav_load_data(FILE *file, wav_fmt_desc *fmt_desc) {
     return data;
 wav_error:
     if (data != NULL) free(data);
+    // TODO: Review whether this is a reasonable way to handle errors
     if (file != NULL) rewind(file);
     *fmt_desc = (wav_fmt_desc){0};
 
     return NULL;
 }
 
+// TODO: Review correctness in case of error
 size_t wav_write_data(FILE *file, wav_fmt_desc fmt_desc, void *data) {
     WAV_ERROR_CHECK(file == NULL, "file is NULL");
 
